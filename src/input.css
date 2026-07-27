@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui" {
+  themes: apex-light --default, business;
+}
+
+@layer base {
+  :root, [data-theme="apex-light"] {
+    --color-base-100: #ffffff;
+    --color-base-200: #f4f4f5;
+    --color-base-300: #e4e4e7;
+    --color-base-content: #09090b;
+    --color-primary: #18181b;
+    --color-primary-content: #ffffff;
+    --color-secondary: #52525b;
+    --color-neutral: #18181b;
+  }
+}
