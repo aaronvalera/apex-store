@@ -36,7 +36,7 @@ app.use("/login", express.static(path.resolve("views", "login")));
 app.use(morgan("tiny"));
 // BACKEND ROUTES
 app.use("/api/users", usersRouter);
-// app.use("/api/login", loginRouter);
+app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter);
 
 module.exports = app;
