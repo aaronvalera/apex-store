@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="/public/output.css">
+        <link rel="icon" type="image/png" href="/images/apex-logo.png">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <title>Sign Up</title>
+    </head>
+    <body class="flex min-h-screen items-center justify-center bg-[#f9f9f9] p-4">
+        <!-- Notification -->
+         <div id="notification" class="fixed z-1 text-center top-20 right-0 mx-4 py-5 transition-all ease-in-out duration-700 opacity-0 translate-x-5 pointer-events-none"></div>
+        <!-- Sign Up Form Section -->
+        <section class="w-full max-w-md">
+            <div class="relative rounded-none bg-white p-8 shadow-sm">
+                <!-- Button back Home -->
+                <a href="/" class="absolute top-4 left-6 inline-flex items-center justify-center p-2 rounded-full text-gray-700 hover:text-black hover:bg-gray-100 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                    </svg>
+                </a>
+                <!-- Header -->
+                <div class="mb-8 text-center">
+                    <div class="mb-4 flex justify-center">
+                        <svg class="h-12 w-12 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                        </svg>
+                    </div>
+                    <h1 class="mb-2 text-2xl font-bold text-black">Create Account</h1>
+                    <p class="text-sm text-gray-600">Join us today and get started</p>
+                </div>
+                <!-- Form -->
+                <form id="form" class="space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Username -->
+                        <div>
+                            <label for="username" class="mb-2 block text-sm font-medium text-gray-700">Username</label>
+                            <input type="text" id="username-input" name="username" autocomplete="username" class="w-full border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-black focus:outline-none" placeholder="username123" required/>
+                            <p class="mt-2 text-xs text-gray-500">Minimun 5 characters</p>
+                        </div>
+                        <!-- Gender Selection -->
+                        <div>
+                            <p class="mb-2 block text-sm font-medium text-gray-700">Gender</p>
+                            <div class="grid grid-cols-2 gap-2">
+                                <!-- Male Radio Option -->
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="gender" value="male" class="peer sr-only" required/>
+                                    <div class="flex h-11.5 items-center justify-center gap-1.5 border border-gray-300 bg-white px-2 text-gray-600 transition-all peer-checked:border-black peer-checked:bg-black peer-checked:text-white hover:bg-gray-100 hover:text-black">
+                                        <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path fill-rule="evenodd" d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8"/>
+                                        </svg>
+                                        <span class="text-xs font-medium">Male</span>
+                                    </div>
+                                </label>
+                                <!-- Female Radio Option -->
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="gender" value="female" class="peer sr-only" required/>
+                                    <div class="flex h-11.5 items-center justify-center gap-1.5 border border-gray-300 bg-white px-2 text-gray-600 transition-all peer-checked:border-black peer-checked:bg-black peer-checked:text-white hover:bg-gray-100 hover:text-black">
+                                        <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8M3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5"/>
+                                        </svg>
+                                        <span class="text-xs font-medium">Female</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="mb-2 block text-sm font-medium text-gray-700">Email Address</label>
+                        <input type="email" id="email-input" name="email" autocomplete="email" class="w-full border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-black focus:outline-none" placeholder="your.email@example.com" required/>
+                    </div>
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="mb-2 block text-sm font-medium text-gray-700">Password</label>
+                        <div class="password-wrapper group relative w-full">
+                            <input type="password" id="password-input" name="password" autocomplete="new-password" class="w-full border border-gray-300 bg-white px-4 py-3 pr-10 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-black focus:outline-none transition-all" placeholder="Create a strong password" required/>
+                            <!-- Toggle password -->
+                            <span class="toggle-password absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-zinc-400 hover:text-zinc-600" data-target="password-input">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye block group-[.is-visible]:hidden" viewBox="0 0 16 16">
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+							    </svg>
+							    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash hidden group-[.is-visible]:block" viewBox="0 0 16 16">
+                                    <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+                                    <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+                                    <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+							    </svg>
+						    </span>
+                        </div>
+                        <p class="mt-2 text-xs text-gray-500">Must be at least 8 characters with numbers and symbols</p>
+                    </div>
+                    <!-- Confirm password -->
+                    <div>
+                        <label for="confirmPassword" class="mb-2 block text-sm font-medium text-gray-700">Confirm Password</label>
+                        <div class="password-wrapper group relative w-full">
+                            <input type="password" id="match-password" name="confirmPassword" autocomplete="new-password" class="w-full border border-gray-300 bg-white px-4 py-3 pr-10 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-black focus:outline-none transition-all" placeholder="Confirm your password" required/>
+                            <!-- Toggle password -->
+                            <span class="toggle-password absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-zinc-400 hover:text-zinc-600" data-target="match-password">
+							    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye block group-[.is-visible]:hidden" viewBox="0 0 16 16">
+  								    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+  							        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+							    </svg>
+							    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash hidden group-[.is-visible]:block" viewBox="0 0 16 16">
+  							        <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+  							        <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+  							        <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+							    </svg>
+						    </span>
+                        </div>
+                    </div>
+                    <!-- Agree with terms -->
+                    <div class="flex items-start">
+                        <input type="checkbox" id="terms" name="terms" class="mt-1 h-4 w-4 rounded border-gray-300 text-black focus:ring-black" required/>
+                        <label for="terms" class="ml-2 block text-sm text-gray-700"> I agree to the <a href="#" class="text-black underline hover:no-underline">Terms of Service</a> and <a href="#" class="text-black underline hover:no-underline">Privacy Policy</a></label>
+                    </div>
+                    <!-- Button sign up -->
+                    <button id="form-btn" type="submit" class="w-full bg-black px-6 py-3 text-sm font-medium enabled:bg-black text-white transition-all">Create Account</button>
+                </form>
+                <!-- Divider -->
+                <div class="my-4 flex w-full flex-col">
+                    <div class="divider before:bg-gray-300 after:bg-gray-300 text-sm text-gray-500">Or sign up with</div>
+                </div>
+                <!-- Social Sign Up -->
+                <div class="mb-6 flex justify-center gap-4">
+                    <button type="button" class="flex items-center justify-center border border-gray-300 bg-white px-4 py-3 text-gray-700 transition-all hover:bg-gray-50">
+                        <svg class="mr-2 h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Google
+                    </button>
+                </div>
+                <!-- Switch to login -->
+                <div class="text-center">
+                    <p class="text-sm text-gray-600">
+                        Already have an account?
+                        <a href="/login" class="font-medium text-black transition-all underline hover:no-underline hover:text-gray-700">Sign in</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <script src="/helpers/togglePasswords.js"></script>
+        <script type="module" src="/components/notification.js"></script>
+        <script type="module" src="index.js"></script>
+    </body>
+</html>
