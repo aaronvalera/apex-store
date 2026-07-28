@@ -1,12 +1,33 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    email: String,
-    passwordHash: String,
-    gender: String,
-    rol: {
+    username: {
         type: String,
+        trim: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true
+    },
+    passwordHash: {
+        type: String
+    },
+    googleId: {
+        type: String,
+        default: null
+    },
+    gender: {
+        type: String,
+        enum: ["male", "female"],
+        lowercase: true,
+        trim: true
+    },
+    role: {
+        type: String,
+        enum: ["customer", "admin"],
         default: "customer"
     },
     paymentMethods: [{
@@ -20,8 +41,13 @@ const userSchema = new mongoose.Schema({
     verified: {
         type: Boolean,
         default: false
+    },
+    authProvider: {
+        type: String,
+        enum: ["local", "google"],
+        default: "local"
     }
-});
+}, { timestamps: true });
 
 userSchema.set("toJSON", {
     transform: (document, returnedObject) => {
