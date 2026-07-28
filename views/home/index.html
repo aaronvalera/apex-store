@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="apex-light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/images/apex-logo.png">
-    <link rel="stylesheet" href="/public/output.css">
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <title>Apex</title>
-</head>
-<body>
-    <nav class="navbar fixed z-1 p-2"></nav>
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12 space-y-16">
-        <section class="relative h-[85vh] min-h-137.5 w-full rounded-3xl overflow-hidden bg-neutral text-neutral-content shadow-2xl">
-            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop" alt="Apex Urban Collection" class="absolute inset-0 w-full h-full object-cover object-center scale-105"/>
-            <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/40 to-black/10"></div>
-            <div class="absolute inset-0 pt-24 sm:pt-32 p-8 sm:p-14 flex flex-col justify-end max-w-3xl">
-                <span class="text-xs sm:text-sm font-extrabold tracking-[0.3em] uppercase text-white/70 mb-3">
-                    FALL / WINTER COLLECTION
-                </span>
-                <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-none mb-6 text-white">
-                    URBAN STYLE.<br/>
-                    NO LIMITS.
-                </h1>
-                <p class="text-sm sm:text-base text-gray-300 font-light max-w-md mb-8 leading-relaxed">
-                    Impeccably designed casual and urban fashion. Elevate your everyday presence with the new APEX clothing line.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#" class="btn btn-primary btn-lg rounded-full px-10 text-sm font-bold uppercase tracking-wider">
-                        Shop Collection
-                    </a>
-                    <a href="#" class="btn btn-outline btn-white text-white btn-lg rounded-full px-10 text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
-                        View Trending
-                    </a>
-                </div>
-            </div>
-        </section>
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="relative h-120 rounded-3xl overflow-hidden group cursor-pointer bg-base-300">
-                <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?q=80&w=1000&auto=format&fit=crop" alt="Men Casual Wear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"/>
-                <div class="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-8 flex justify-between items-end w-full">
-                    <div>
-                        <span class="text-xs font-bold uppercase text-white/70 tracking-widest">Essentials</span>
-                        <h2 class="text-3xl font-black text-white uppercase tracking-tight">MEN'S WEAR</h2>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="/images/apex-logo.png">
+        <link rel="stylesheet" href="/public/output.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <title>Apex</title>
+    </head>
+    <body>
+        <nav class="navbar fixed z-1 p-2"></nav>
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12 space-y-16">
+            <section class="relative h-[85vh] min-h-137.5 w-full rounded-3xl overflow-hidden bg-neutral text-neutral-content shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop" alt="Apex Urban Collection" class="absolute inset-0 w-full h-full object-cover object-center scale-105"/>
+                <div class="absolute inset-0 bg-linear-to-t from-black/85 via-black/40 to-black/10"></div>
+                <div class="absolute inset-0 pt-24 sm:pt-32 p-8 sm:p-14 flex flex-col justify-end max-w-3xl">
+                    <span class="text-xs sm:text-sm font-extrabold tracking-[0.3em] uppercase text-white/70 mb-3">
+                        FALL / WINTER COLLECTION
+                    </span>
+                    <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-none mb-6 text-white">
+                        URBAN STYLE.<br/>
+                        NO LIMITS.
+                    </h1>
+                    <p class="text-sm sm:text-base text-gray-300 font-light max-w-md mb-8 leading-relaxed">
+                        Impeccably designed casual and urban fashion. Elevate your everyday presence with the new APEX clothing line.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="btn btn-primary btn-lg rounded-full px-10 text-sm font-bold uppercase tracking-wider">
+                            Shop Collection
+                        </a>
+                        <a href="#" class="btn btn-outline btn-white text-white btn-lg rounded-full px-10 text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-colors">
+                            View Trending
+                        </a>
                     </div>
-                    <span class="btn btn-sm btn-ghost bg-white/20 backdrop-blur-md text-white border-0 rounded-full px-6 group-hover:bg-white group-hover:text-black transition-colors">Explore →</span>
                 </div>
-            </div>
-            <div class="relative h-120 rounded-3xl overflow-hidden group cursor-pointer bg-base-300">
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop" alt="Women Casual Wear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"/>
-                <div class="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-8 flex justify-between items-end w-full">
-                    <div>
-                        <span class="text-xs font-bold uppercase text-white/70 tracking-widest">New Season</span>
-                        <h2 class="text-3xl font-black text-white uppercase tracking-tight">WOMEN'S WEAR</h2>
+            </section>
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="relative h-120 rounded-3xl overflow-hidden group cursor-pointer bg-base-300">
+                    <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?q=80&w=1000&auto=format&fit=crop" alt="Men Casual Wear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"/>
+                    <div class="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 flex justify-between items-end w-full">
+                        <div>
+                            <span class="text-xs font-bold uppercase text-white/70 tracking-widest">Essentials</span>
+                            <h2 class="text-3xl font-black text-white uppercase tracking-tight">MEN'S WEAR</h2>
+                        </div>
+                        <span class="btn btn-sm btn-ghost bg-white/20 backdrop-blur-md text-white border-0 rounded-full px-6 group-hover:bg-white group-hover:text-black transition-colors">Explore →</span>
                     </div>
-                    <span class="btn btn-sm btn-ghost bg-white/20 backdrop-blur-md text-white border-0 rounded-full px-6 group-hover:bg-white group-hover:text-black transition-colors">Explore →</span>
                 </div>
-            </div>
-        </section>
-    </main>
-    <footer class="footer bg-base-200 text-base-content rounded-t-md mt-20"></footer>
-    <script src="/components/footer.js"></script>
-    <script type="module" src="./index.js"></script>
-</body>
+                <div class="relative h-120 rounded-3xl overflow-hidden group cursor-pointer bg-base-300">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop" alt="Women Casual Wear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"/>
+                    <div class="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 flex justify-between items-end w-full">
+                        <div>
+                            <span class="text-xs font-bold uppercase text-white/70 tracking-widest">New Season</span>
+                            <h2 class="text-3xl font-black text-white uppercase tracking-tight">WOMEN'S WEAR</h2>
+                        </div>
+                        <span class="btn btn-sm btn-ghost bg-white/20 backdrop-blur-md text-white border-0 rounded-full px-6 group-hover:bg-white group-hover:text-black transition-colors">Explore →</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer bg-base-200 text-base-content rounded-t-md mt-20"></footer>
+        <script src="/components/footer.js"></script>
+        <script type="module" src="./index.js"></script>
+    </body>
 </html>
