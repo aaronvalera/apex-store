@@ -6,7 +6,7 @@ logoutRouter.post("/", async (req, res) => {
         return res.sendStatus(401);
     }
     res.clearCookie("accessToken", {
-        secure: proccess.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === "production",
         httpOnly: true
     });
     return res.sendStatus(204);
