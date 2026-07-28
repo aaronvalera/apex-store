@@ -6,8 +6,9 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const { MONGO_URI } = require("./config.js");
-const usersRouter = require("./controllers/users.js");
 const profileRouter = require("./controllers/profile.js");
+const googleAuthRouter = require("./controllers/googleAuth.js");
+const usersRouter = require("./controllers/users.js");
 const loginRouter = require("./controllers/login.js");
 const logoutRouter = require("./controllers/logout.js");
 const app = express();
@@ -36,7 +37,8 @@ app.use("/login", express.static(path.resolve("views", "login")));
 
 app.use(morgan("tiny"));
 // BACKEND ROUTES
-app.use("/api/profile", profileRouter); 
+app.use("/api/profile", profileRouter);
+app.use("/api/auth", googleAuthRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter);
