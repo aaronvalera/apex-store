@@ -1,6 +1,6 @@
 const navbarContainer = document.querySelector(".navbar");
 
-const createNavbar = (user = null) => {
+export const createNavbar = (user = null) => {
     let userMenuItems = ``;
 
     if(!user) {
@@ -25,7 +25,7 @@ const createNavbar = (user = null) => {
         userMenuItems = `
             ${adminOption}
             <li><a href="/settings" class="font-semibold text-primary">Settings</a></li>
-            <li><button id="logout-btn" class="text-red-500">Logout</button></li>   
+            <li><button id="logout-btn" class="font-semibold text-red-500">Logout</button></li>   
         `;
     }
     const navbar = `
@@ -133,5 +133,3 @@ const createNavbar = (user = null) => {
         });
     }
 };
-
-createNavbar();
