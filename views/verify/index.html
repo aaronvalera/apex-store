@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="/public/output.css"/>
+        <link rel="icon" type="image/png" href="/images/apex-logo.png"/>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <title>Verify Account | Apex Store</title>
+    </head>
+    <body class="bg-gray-50 flex items-center justify-center min-h-screen">
+        <div class="w-full max-w-md p-6">
+            <div class="bg-white border border-gray-100 rounded-xl p-8 shadow-sm text-center">
+                <div id="loading-state" class="space-y-4">
+                    <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-gray-200 border-t-black"></div>
+                    <h2 class="text-xl font-bold text-gray-900">Verifying your account</h2>
+                    <p class="text-sm text-gray-500">Please wait a moment while we validate your email...</p>
+                </div>
+                <div id="success-state" class="hidden space-y-4">
+                    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900">Email Verified!</h2>
+                    <p id="success-message" class="text-sm text-gray-500">Your account has been successfully verified. You can now log in.</p>
+                    <a href="/login/" class="mt-4 inline-flex w-full items-center justify-center rounded-none bg-black px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-gray-800">
+                        Sign In
+                    </a>
+                </div>
+                <div id="error-state" class="hidden space-y-4">
+                    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-900">Verification Failed</h2>
+                    <p id="error-message" class="text-sm text-gray-500">The verification link is invalid or has expired.</p>
+                    <a href="/login/" class="mt-4 inline-flex w-full items-center justify-center rounded-none border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50">
+                        Back to Login
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script src="./index.js"></script>
+    </body>
+</html>

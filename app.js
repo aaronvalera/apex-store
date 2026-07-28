@@ -33,6 +33,7 @@ app.use("/components", express.static(path.resolve("views", "components")));
 app.use("/helpers", express.static(path.resolve("views", "helpers")));  
 app.use("/", express.static(path.resolve("views", "home")));
 app.use("/signup", express.static(path.resolve("views", "signup")));
+app.use("/verify/:id/:token", express.static(path.resolve("views", "verify")));
 app.use("/login", express.static(path.resolve("views", "login")));
 
 app.use(morgan("tiny"));

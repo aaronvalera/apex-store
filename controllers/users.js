@@ -59,4 +59,31 @@ usersRouter.post("/", async (req, res) => {
     }
 });
 
-module.exports = usersRouter;
+usersRouter.patch("/:id/:token", async (req, res) => {
+    try {
+        const token = req.params.token;
+        const verifiedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const id = verifiedToken.id;
+        const user = await User.findByIdAndUpdate(id, { verified: true });
+        if (user.verified) {
+          return res.status(400).json({ error: "This account has already been verified." });
+        }
+        return res.sendStatus(200);
+    } catch (error) {
+        const userId = req.params.id;
+        try {
+          const user = await User.findById(userId);
+          if (!user) {
+            return res.status(404).json({ error: "The user associated with this link no longer exists." });
+          }
+          await sendVerificationEmail(userId, user.email);
+          return res.status(400).json({ error: "The link has expired. A new verification link has been sent." });
+
+        } catch (error) {
+          console.error("Critical error inside Catch:", error);
+          return res.status(500).json({ error: "An unexpected error occurred while processing the expired link." });
+        }
+    }
+});
+
+module.exports = usersRouter;   
