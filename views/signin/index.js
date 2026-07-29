@@ -33,7 +33,7 @@ form.addEventListener("submit", async (event) => {
             password: password,
             remember: rememberMeCheckbox.checked
         }
-        const response = await axios.post("/api/login", user);
+        const response = await axios.post("/api/signin", user);
 
         if(rememberMeCheckbox.checked) {
             localStorage.setItem("rememberedEmail", cleanEmail);
@@ -44,7 +44,7 @@ form.addEventListener("submit", async (event) => {
         window.location.pathname = "/";    
     } catch (error) {
         submitFormBtn.disabled = false;
-        console.error("Login error", error);
+        console.error("Sign In error", error);
         errorText.textContent = error.response?.data?.error || "Network error. Please try again later.";
     }
 });

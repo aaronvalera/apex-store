@@ -6,7 +6,7 @@ export const createNavbar = (user = null) => {
     if(!user) {
         userMenuItems = `
             <li><a href="/signup" class="font-semibold text-primary">Sign Up</a></li>
-            <li><a href="/login" class="font-semibold text-primary">Login</a></li>
+            <li><a href="/signin" class="font-semibold text-primary">Sign In</a></li>
         `;
     } else {
         let adminOption = ``;

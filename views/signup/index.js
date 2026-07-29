@@ -165,7 +165,7 @@
             [usernameInput, emailInput, passwordInput, passwordMatchInput].forEach(clearInput);
 
             setTimeout(() => {
-                window.location.pathname = "/login";
+                window.location.pathname = "/signin";
             }, 3000);
             } catch (error) {
                 submitFormBtn.disabled = false;

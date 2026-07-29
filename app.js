@@ -9,7 +9,7 @@ const { MONGO_URI } = require("./config.js");
 const profileRouter = require("./controllers/profile.js");
 const googleAuthRouter = require("./controllers/googleAuth.js");
 const usersRouter = require("./controllers/users.js");
-const loginRouter = require("./controllers/login.js");
+const signInRouter = require("./controllers/signin.js");
 const logoutRouter = require("./controllers/logout.js");
 const app = express();
 
@@ -34,14 +34,14 @@ app.use("/helpers", express.static(path.resolve("views", "helpers")));
 app.use("/", express.static(path.resolve("views", "home")));
 app.use("/signup", express.static(path.resolve("views", "signup")));
 app.use("/verify/:id/:token", express.static(path.resolve("views", "verify")));
-app.use("/login", express.static(path.resolve("views", "login")));
+app.use("/signin", express.static(path.resolve("views", "signin")));
 
 app.use(morgan("tiny"));
 // BACKEND ROUTES
 app.use("/api/profile", profileRouter);
 app.use("/api/auth", googleAuthRouter);
 app.use("/api/users", usersRouter);
-app.use("/api/login", loginRouter);
+app.use("/api/signin", signInRouter);
 app.use("/api/logout", logoutRouter);
 
 module.exports = app;
