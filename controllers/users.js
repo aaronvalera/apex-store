@@ -60,30 +60,50 @@ usersRouter.post("/", async (req, res) => {
 });
 
 usersRouter.patch("/:id/:token", async (req, res) => {
+    const { id: paramId, token } = req.params;
+
     try {
-        const token = req.params.token;
         const verifiedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        const id = verifiedToken.id;
-        const user = await User.findByIdAndUpdate(id, { verified: true });
+        if (verifiedToken.id !== paramId) {
+            return res.status(400).json({ error: "Invalid verification link parameters." });
+        }
+        
+        const user = await User.findById(paramId);
+        if (!user) {
+            return res.status(404).json({ error: "The user associated with this link no longer exists." });
+        }
         if (user.verified) {
           return res.status(400).json({ error: "This account has already been verified." });
         }
-        return res.sendStatus(200);
-    } catch (error) {
-        const userId = req.params.id;
-        try {
-          const user = await User.findById(userId);
-          if (!user) {
-            return res.status(404).json({ error: "The user associated with this link no longer exists." });
-          }
-          await sendVerificationEmail(userId, user.email);
-          return res.status(400).json({ error: "The link has expired. A new verification link has been sent." });
+        user.verified = true;
+        await user.save();
 
-        } catch (error) {
-          console.error("Critical error inside Catch:", error);
-          return res.status(500).json({ error: "An unexpected error occurred while processing the expired link." });
+        return res.status(200).json({ message: "Your account has been successfully verified. You can now Sign In." });
+    } catch (error) {
+        if (error.name === "TokenExpiredError") {
+            const decoded = jwt.decode(token);
+            if (!decoded || decoded.id !== paramId) {
+                return res.status(400).json({ error: "Invalid verification link parameters." });
+            }
+
+            try {
+                const user = await User.findById(paramId);
+                if (user && !user.verified) {
+                    await sendVerificationEmail(user.id, user.email);
+                    return res.status(400).json({ error: "The link has expired. A new verification link has been sent to your email." });
+                }
+            } catch (emailError) {
+                console.error("Error sending automatic re-verification email:", emailError);
+            }
+            return res.status(400).json({ error: "The link has expired. Please request a new verification link." });
         }
+
+        if (error.name === "JsonWebTokenError") {
+            return res.status(400).json({ error: "Invalid or malformed verification token." });
+        }
+        console.error("Error during verification:", error);
+        return res.status(500).json({ error: "An unexpected error occurred during verification." });
     }
 });
 
-module.exports = usersRouter;   
+module.exports = usersRouter;
