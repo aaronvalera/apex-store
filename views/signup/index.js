@@ -139,10 +139,10 @@
     
         try {
             const newUser = {
-            username: usernameInput.value.trim(),
-            gender: selectedGender,
-            email: emailInput.value.trim().toLowerCase(),
-            password: passwordInput.value,
+                username: usernameInput.value.trim(),
+                gender: selectedGender,
+                email: emailInput.value.trim().toLowerCase(),
+                password: passwordInput.value,
             }
             const { data } = await axios.post("/api/users", newUser);
         
@@ -155,10 +155,9 @@
             setTimeout(() => {
                 window.location.pathname = "/signin";
             }, 3000);
-            } catch (error) {
-                submitFormBtn.disabled = false;
-                const errorMessage = error.response?.data?.error || "Internal server error. Please try again later.";
-                
-                displayNotification(true, errorMessage, 4000);
+        } catch (error) {
+            submitFormBtn.disabled = false;
+            const errorMessage = error.response?.data?.error || "Internal server error. Please try again later.";
+            displayNotification(true, errorMessage, 4000);
         }
     });
