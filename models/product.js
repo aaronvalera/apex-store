@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
 
-// 1. Subesquema para las fotos en Cloudinary
 const cloudinaryImageSchema = new mongoose.Schema({
     url: { type: String, required: true },
     publicID: { type: String, required: true }
 }, { _id: false });
 
-// 2. Subesquema para el stock por talla
 const sizeStockSchema = new mongoose.Schema({
     size: {
         type: String,
@@ -21,16 +19,14 @@ const sizeStockSchema = new mongoose.Schema({
     }
 }, { _id: false });
 
-// 3. Subesquema de Variantes (Vincula Color + Sus Fotos + Sus Tallas)
 const variantSchema = new mongoose.Schema({
-    colorName: { type: String, required: true, trim: true }, // Ej: "Matte Black"
-    colorHex: { type: String, required: true, default: "#000000" }, // Ej: "#000000"
-    sku: { type: String, required: true, unique: true, trim: true }, // Ej: "APX-TS-001-BLK"
-    images: [cloudinaryImageSchema], // Fotos exclusivas de este color
-    sizes: [sizeStockSchema] // Stock independiente por talla para este color
+    colorName: { type: String, required: true, trim: true },
+    colorHex: { type: String, required: true, default: "#000000" },
+    sku: { type: String, required: true, unique: true, trim: true },
+    images: [cloudinaryImageSchema],
+    sizes: [sizeStockSchema]
 }, { _id: false });
 
-// 4. Esquema Principal del Producto
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -57,7 +53,7 @@ const productSchema = new mongoose.Schema({
         ref: "Category",
         required: true
     }],
-    variants: [variantSchema], // Arreglo con todas las combinaciones de color/fotos
+    variants: [variantSchema],
     isNewProduct: {
         type: Boolean,
         default: false
@@ -72,7 +68,6 @@ const productSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-// Limpieza de respuesta JSON para el frontend
 productSchema.set("toJSON", {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString();
