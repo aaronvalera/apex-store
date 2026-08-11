@@ -165,6 +165,9 @@ window.changeCartQuantity = (cartItemId, delta) => {
     localStorage.setItem("cart", JSON.stringify(cart));
     updateNavbarCart();
     renderCartModal();
+    
+    // Dispatch custom event to notify listeners on the same page
+    window.dispatchEvent(new Event("cartUpdated"));
   }
 };
 
@@ -176,4 +179,7 @@ window.removeCartItem = (cartItemId) => {
   localStorage.setItem("cart", JSON.stringify(cart));
   updateNavbarCart();
   renderCartModal();
+
+  // Dispatch custom event to notify listeners on the same page
+  window.dispatchEvent(new Event("cartUpdated"));
 };
