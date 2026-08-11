@@ -14,7 +14,6 @@
     const passwordMatchInput = document.getElementById("match-password");
     const termsCheckbox = document.getElementById("terms");
     const submitFormBtn = document.getElementById("form-btn");
-    const notification = document.getElementById("notification");
 
     // VARIABLES
     let usernameValidation = false;
@@ -30,15 +29,6 @@
         "bg-white", "bg-red-50/50", "bg-emerald-50/30",
         "focus:ring-black", "focus:ring-red-500", "focus:ring-emerald-500"
     ];
-
-    // HIDE NOTIFICATION
-    const hideNotification = (delay) => {
-        setTimeout(() => {
-            notification.innerHTML = "";
-            notification.classList.remove("opacity-100", "translate-x-0");
-            notification.classList.add("opacity-0", "translate-x-5", "pointer-events-none");
-        }, delay);
-    };
 
     // HELPER
     const getIsFormValid = () => {
@@ -140,14 +130,13 @@
         event.preventDefault();
 
         if (!getIsFormValid()) {
-            displayNotification(true, "Please fill out all fields properly.");
-            hideNotification(4000);
+            displayNotification(true, "All fields are required.", 4000);
             return;
         }
 
         submitFormBtn.disabled = true;
         const selectedGender = document.querySelector('input[name="gender"]:checked')?.value;
-
+    
         try {
             const newUser = {
             username: usernameInput.value.trim(),
@@ -157,8 +146,7 @@
             }
             const { data } = await axios.post("/api/users", newUser);
         
-            displayNotification(false, data.message);
-            hideNotification(3000);
+            displayNotification(false, data.message || "Account created successfully! Please check your email.", 3000);
 
             event.target.reset();
             usernameValidation = genderValidation = emailValidation = passwordValidation = passwordMatchValidation = termsValidation = false;
@@ -171,7 +159,6 @@
                 submitFormBtn.disabled = false;
                 const errorMessage = error.response?.data?.error || "Internal server error. Please try again later.";
                 
-                displayNotification(true, errorMessage);
-                hideNotification(4000);
+                displayNotification(true, errorMessage, 4000);
         }
     });
