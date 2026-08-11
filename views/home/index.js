@@ -1,11 +1,4 @@
-import { createNavbar } from "../components/navbar.js";
+import { createNavbar } from "/components/navbar.js";
+import { adaptNavbar } from "/helpers/adaptNavbar.js";
 
-const loadApp = async () => {
-    try {
-        const { data } = await axios.get("/api/profile");
-        createNavbar(data);
-    } catch (error) {
-        createNavbar(null);
-    }
-};
-loadApp();
+adaptNavbar();
