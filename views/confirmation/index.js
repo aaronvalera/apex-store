@@ -1,15 +1,19 @@
 import { adaptNavbar } from "/helpers/adaptNavbar.js";
 import { updateNavbarCart } from "/helpers/updateNavbarCart.js";
+import { formatUSD, formatDate } from "/helpers/formatters.js";
 
 // Global DOM Selectors
 const iconContainer = document.getElementById("status-icon-container");
 const titleElement = document.getElementById("confirmation-title");
 const subtitleElement = document.getElementById("confirmation-subtitle");
 const paymentRefContainer = document.getElementById("payment-ref-container");
+const orderNumberElement = document.getElementById("order-number");
+const orderDateElement = document.getElementById("order-date");
+const orderTotalElement = document.getElementById("order-total");
 const paymentRefElement = document.getElementById("payment-intent-id");
 
 // Helper UI Functions
-const renderSuccessUI = (transactionRef) => {
+const renderSuccessUI = (order) => {
     if (iconContainer) {
         iconContainer.className = "w-16 h-16 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto shadow-md transition-all duration-300";
         iconContainer.innerHTML = `
@@ -27,14 +31,26 @@ const renderSuccessUI = (transactionRef) => {
         subtitleElement.textContent = "We've received your payment and are processing your order.";
     }
 
+    if (orderNumberElement) {
+        orderNumberElement.textContent = order.orderNumber || "N/A";
+    }
+
+    if (orderDateElement) {
+        orderDateElement.textContent = formatDate(order.createdAt);
+    }
+
+    if (orderTotalElement) {
+        orderTotalElement.textContent = formatUSD(order.totalPrice);
+    }
+
     if (paymentRefElement) {
-        paymentRefElement.textContent = transactionRef;
+        paymentRefElement.textContent = order.paymentDetails?.transactionReference || "N/A";
     }
 
     if (paymentRefContainer) {
         paymentRefContainer.classList.remove("hidden");
     }
-}
+};
 
 const renderErrorUI = (messageText) => {
     if (iconContainer) {
@@ -57,7 +73,7 @@ const renderErrorUI = (messageText) => {
     if (paymentRefContainer) {
         paymentRefContainer.classList.add("hidden");
     }
-}
+};
 
 // Main Event Listener
 document.addEventListener("DOMContentLoaded", async () => {
@@ -75,9 +91,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         const response = await axios.post("/api/orders", { paymentIntentId });
-        const ref = response.data.paymentDetails?.transactionReference || paymentIntentId;
         
-        renderSuccessUI(ref);
+        renderSuccessUI(response.data);
     } catch (error) {
         const status = error.response?.status;
         let errorMessage = "You are not authorized to view this order or the reference is invalid.";

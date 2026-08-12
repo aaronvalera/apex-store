@@ -1,5 +1,19 @@
 const ordersRouter = require("express").Router();
+const mongoose = require("mongoose");
 const Order = require("../models/order.js");
+
+ordersRouter.get("/", async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ message: "Unauthorized." });
+        }
+
+        const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
+        return res.status(200).json(orders);
+    } catch (error) {
+        return res.status(500).json({ message: "Error fetching order history.", error: error.message });
+    }
+});
 
 ordersRouter.post("/", async (req, res) => {
     const { products, totalPrice, shippingAddress, paymentIntentId } = req.body;
@@ -78,20 +92,28 @@ ordersRouter.post("/", async (req, res) => {
 ordersRouter.get("/:id", async (req, res) => {
     const { id } = req.params;
 
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: "Invalid order ID format." });
+    }
+
     try {
+        if (!req.user) {
+            return res.status(401).json({ message: "Unauthorized." });
+        }
+
         const order = await Order.findById(id);
         if (!order) {
-            return res.status(404).json({ error: "Order not found." });
+            return res.status(404).json({ message: "Order not found." });
         }
 
-        if (order.user.toString() !== req.user?._id?.toString()) {
-            return res.status(403).json({ error: "Unauthorized access to this order." });
+        if (order.user.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ message: "Unauthorized access to this order." });
         }
 
-        return res.json(order);
+        return res.status(200).json(order);
     } catch (error) {
         console.error("Error fetching order:", error);
-        return res.status(500).json({ error: "Internal server error." });
+        return res.status(500).json({ message: "Internal server error.", error: error.message });
     }
 });
 
