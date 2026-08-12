@@ -110,12 +110,10 @@ export const renderCartModal = () => {
         <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-1/2">
           <div class="inline-flex border border-slate-200 rounded-lg bg-slate-50 overflow-hidden">
             <button onclick="changeCartQuantity('${cartItemId}', -1)" class="px-2.5 py-1 text-slate-600 hover:bg-slate-200 font-bold transition-colors">-</button>
-            <span class="px-3 py-1 text-xs font-bold bg-white text-slate-900 flex items-center justify-center min-w-8">
-              ${quantity}
-            </span>
+            <input type="number" value="${quantity}" min="1" max="${item.stock || 99}" oninput="setCartQuantity('${cartItemId}', this.value, this)" onblur="if(this.value === '') renderCartModal()" class="w-10 text-center text-xs font-bold bg-white text-slate-900 border-none focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"/>
             <button onclick="changeCartQuantity('${cartItemId}', 1)" class="px-2.5 py-1 text-slate-600 hover:bg-slate-200 font-bold transition-colors">+</button>
           </div>
-          <div class="text-right font-black text-slate-900 text-base w-20">
+          <div id="item-total-${cartItemId}" class="text-right font-black text-slate-900 text-base w-20">
             $${itemTotal.toFixed(2)}
           </div>
           <button onclick="removeCartItem('${cartItemId}')" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors rounded-lg" title="Remove item">
@@ -166,7 +164,52 @@ window.changeCartQuantity = (cartItemId, delta) => {
     updateNavbarCart();
     renderCartModal();
     
-    // Dispatch custom event to notify listeners on the same page
+    window.dispatchEvent(new Event("cartUpdated"));
+  }
+};
+
+window.setCartQuantity = (cartItemId, value, inputElement) => {
+  let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  const index = cart.findIndex(item => 
+    (item.cartItemId || `${item.id}-${item.colorName || ''}-${item.size || ''}`) === cartItemId
+  );
+
+  if (index !== -1) {
+    if (value === "") return;
+
+    let parsed = parseInt(value, 10);
+    if (isNaN(parsed)) return;
+
+    const maxStock = typeof cart[index].stock === "number" ? cart[index].stock : 99;
+
+    if (parsed <= 0) {
+      removeCartItem(cartItemId);
+      return;
+    }
+
+    if (parsed > maxStock) {
+      parsed = maxStock;
+      if (inputElement) {
+        inputElement.value = maxStock;
+      }
+    }
+
+    cart[index].quantity = parsed;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    
+    const itemTotalElement = document.getElementById(`item-total-${cartItemId}`);
+    if (itemTotalElement) {
+      const price = Number(cart[index].price) || 0;
+      itemTotalElement.textContent = `$${(price * parsed).toFixed(2)}`;
+    }
+
+    const newSubtotal = cart.reduce((sum, item) => sum + (Number(item.price) || 0) * (Number(item.quantity) || 1), 0);
+    const subtotalEl = document.getElementById("cart-modal-subtotal");
+    if (subtotalEl) {
+      subtotalEl.textContent = `$${newSubtotal.toFixed(2)}`;
+    }
+
+    updateNavbarCart();
     window.dispatchEvent(new Event("cartUpdated"));
   }
 };
@@ -180,6 +223,5 @@ window.removeCartItem = (cartItemId) => {
   updateNavbarCart();
   renderCartModal();
 
-  // Dispatch custom event to notify listeners on the same page
   window.dispatchEvent(new Event("cartUpdated"));
 };

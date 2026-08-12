@@ -146,9 +146,7 @@ export const createProductDetails = (product, selectedVariant, selectedSize, sel
             <label class="block text-xs font-bold uppercase tracking-wider text-slate-800">Quantity</label>
             <div class="inline-flex border border-slate-200 rounded-lg bg-slate-50 overflow-hidden">
               <button onclick="updateQuantity(-1)" ${isOutOfStock ? 'disabled' : ''} class="px-3 py-1.5 text-slate-600 hover:bg-slate-200 font-bold transition-colors disabled:opacity-40">-</button>
-              <span id="quantity-display" class="px-4 py-1.5 text-xs font-bold bg-white text-slate-900 flex items-center justify-center min-w-10">
-                ${selectedQuantity}
-              </span>
+              <input type="number" id="quantity-input" value="${selectedQuantity}" min="1" max="${availableStock}" oninput="handleQuantityInput(this.value)" ${isOutOfStock ? 'disabled' : ''} class="w-12 text-center text-xs font-bold bg-white text-slate-900 border-none focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"/>
               <button onclick="updateQuantity(1)" ${isOutOfStock ? 'disabled' : ''} class="px-3 py-1.5 text-slate-600 hover:bg-slate-200 font-bold transition-colors disabled:opacity-40">+</button>
             </div>
           </div>

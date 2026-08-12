@@ -129,8 +129,22 @@ window.updateQuantity = (delta) => {
   if (selectedQuantity + delta < 1 || selectedQuantity + delta > stock) return;
 
   selectedQuantity += delta;
-  const quantityDisplay = document.getElementById("quantity-display");
-  if (quantityDisplay) quantityDisplay.textContent = selectedQuantity;
+  const quantityInput = document.getElementById("quantity-input");
+  if (quantityInput) quantityInput.value = selectedQuantity;
+};
+
+window.handleQuantityInput = (value) => {
+  if (value === "") return;
+
+  const stock = getAvailableStock(currentProduct, selectedVariant, selectedSize);
+  let parsed = parseInt(value, 10);
+
+  if (isNaN(parsed) || parsed < 1) parsed = 1;
+  if (parsed > stock) parsed = stock;
+
+  selectedQuantity = parsed;
+  const quantityInput = document.getElementById("quantity-input");
+  if (quantityInput) quantityInput.value = selectedQuantity;
 };
 
 window.handleAddToCart = () => {
