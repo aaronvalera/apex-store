@@ -67,6 +67,11 @@ app.get("/admin/dashboard", userPageGuard, adminPageGuard, (req, res) => {
 });
 app.use("/admin/dashboard", express.static(path.resolve("views", "adminDashboard"), { index: false }));
 
+app.get("/settings", userPageGuard, (req, res) => {
+    res.sendFile(path.resolve("views", "settingsDashboard", "index.html"));
+});
+app.use("/settings", express.static(path.resolve("views", "settingsDashboard"), { index: false }));
+
 app.use(morgan("tiny"));
 // BACKEND ROUTES
 app.use("/api/profile", userExtractor, profileRouter);
