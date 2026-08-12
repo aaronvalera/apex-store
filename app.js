@@ -45,7 +45,6 @@ app.use("/signup", express.static(path.resolve("views", "signup")));
 app.use("/signin", express.static(path.resolve("views", "signin")));
 app.use("/catalog", express.static(path.resolve("views", "catalog")));
 app.use("/product", express.static(path.resolve("views", "product")));
-app.use("/confirmation", express.static(path.resolve("views", "confirmation")));
 
 app.use("/verify", express.static(path.resolve("views", "verify")));
 app.get("/verify/:id/:token", (req, res) => {
@@ -53,6 +52,11 @@ app.get("/verify/:id/:token", (req, res) => {
 });
 
 // PROTECTED ROUTES
+app.get("/confirmation", userPageGuard, (req, res) => {
+    res.sendFile(path.resolve("views", "confirmation", "index.html"));
+});
+app.use("/confirmation", express.static(path.resolve("views", "confirmation"), { index: false }));
+
 app.get("/checkout", userPageGuard, (req, res) => {
     res.sendFile(path.resolve("views", "checkout", "index.html"));
 });
@@ -65,7 +69,7 @@ app.use("/admin/dashboard", express.static(path.resolve("views", "adminDashboard
 
 app.use(morgan("tiny"));
 // BACKEND ROUTES
-app.use("/api/profile", profileRouter);
+app.use("/api/profile", userExtractor, profileRouter);
 app.use("/api/auth", googleAuthRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/signin", signInRouter);
