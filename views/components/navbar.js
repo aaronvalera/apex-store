@@ -221,7 +221,7 @@ export const createNavbar = (user = null) => {
             </div>
             ${isCatalogPage ? `
                 <div class="lg:hidden pb-2 pt-1 border-t border-base-300/50 mt-1">
-                    <div class="relative z-50 w-full">
+                    <div class="relative z-20 w-full">
                         <div class="relative flex items-center w-full">
                             <input id="mobile-navbar-search-input" type="text" name="search" placeholder="Search products..." class="input input-bordered input-sm w-full pr-10 focus:outline-none focus:border-primary shadow-inner" autocomplete="off"/>
                             <svg class="w-4 h-4 absolute right-3 text-base-content/50 pointer-events-none" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
